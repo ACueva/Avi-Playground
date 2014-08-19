@@ -1,3 +1,7 @@
+# My custom git-ignores
+*.txt
+*.komodo*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
