@@ -13,19 +13,23 @@ import getpass
 ArcGISURL = 'http://avipython103.esri.com/ags'
 AdminUser = "admin"
 AdminPass = getpass.getpass(prompt="Please enter your ArcGIS Server password: ")
-print(AdminPass)
 
 #***********End of User Configuration***********
+ags = VerifyServer.ParseURL(ArcGISURL)
 
-ags = VerifyServer.ParseURL(ArcGISURL) 
-print ags
+print ags #Debugging Purposes
+
+instance = ags.path
+instance = instance[1:]
+
+print instance #Debugging Purposes
 
 if ags.scheme == 'http':
     port = 80
 else:
     port = 443
 
-services = listServices.getServiceList(ags.netloc, port, AdminUser, AdminPass)
+services = listServices.getServiceList(ags.netloc, port, instance, AdminUser, AdminPass)
 print services
 
 class TestAGSServices(unittest.TestCase):

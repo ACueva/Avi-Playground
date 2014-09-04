@@ -13,7 +13,7 @@ import urllib, urllib2, json
 import arcpy
 
 
-def gentoken(server, port, adminUser, adminPass, expiration=60):
+def gentoken(server, port, instance, adminUser, adminPass, expiration=60):
     #Re-usable function to get a token required for Admin changes
     
     query_dict = {'username':   adminUser,
@@ -22,7 +22,7 @@ def gentoken(server, port, adminUser, adminPass, expiration=60):
                   'client':     'requestip'}
     
     query_string = urllib.urlencode(query_dict)
-    url = "http://{}:{}/ags/admin/generateToken".format(server, port)
+    url = "http://{}:{}/{}/admin/generateToken".format(server, port, instance)
     
     token = json.loads(urllib.urlopen(url + "?f=json", query_string).read())
         
@@ -34,7 +34,7 @@ def gentoken(server, port, adminUser, adminPass, expiration=60):
 
 
 
-def getServiceList(server, port,adminUser, adminPass, token=None):
+def getServiceList(server, port, instance, adminUser, adminPass, token=None):
     ''' Function to get all services
     Requires Admin user/password, as well as server and port (necessary to construct token if one does not exist).
     If a token exists, you can pass one in for use.  
@@ -43,11 +43,11 @@ def getServiceList(server, port,adminUser, adminPass, token=None):
     
     
     if token is None:    
-        token = gentoken(server, port, adminUser, adminPass)    
+        token = gentoken(server, port, instance, adminUser, adminPass)    
     
     services = []    
     folder = ''    
-    URL = "http://{}:{}/ags/admin/services{}?f=pjson&token={}".format(server, port, folder, token)    
+    URL = "http://{}:{}/{}/admin/services{}?f=pjson&token={}".format(server, port, instance, folder, token)    
 
     serviceList = json.loads(urllib2.urlopen(URL).read())
 
@@ -62,7 +62,7 @@ def getServiceList(server, port,adminUser, adminPass, token=None):
         
     if len(folderList) > 0:
         for folder in folderList:                                              
-            URL = "http://{}:{}/ags/admin/services/{}?f=pjson&token={}".format(server, port, folder, token)    
+            URL = "http://{}:{}/{}/admin/services/{}?f=pjson&token={}".format(server, port, instance, folder, token)    
             fList = json.loads(urllib2.urlopen(URL).read())
             
             for single in fList["services"]:
@@ -75,11 +75,12 @@ def getServiceList(server, port,adminUser, adminPass, token=None):
 if __name__ == "__main__":     
     
     # Gather inputs      
-    server = arcpy.GetParameterAsText(0) 
-    port = arcpy.GetParameterAsText(1) 
-    adminUser = arcpy.GetParameterAsText(2)  
-    adminPass = arcpy.GetParameterAsText(3) 
+    server = arcpy.GetParameterAsText(0)
+    port = arcpy.GetParameterAsText(1)
+    instance = arcpy.GetParameterAsText(2)
+    adminUser = arcpy.GetParameterAsText(3)  
+    adminPass = arcpy.GetParameterAsText(4) 
     
-    getServiceList(server, port, adminUser, adminPass)
+    getServiceList(server, port, instance, adminUser, adminPass)
       
 
