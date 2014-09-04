@@ -22,7 +22,7 @@ def gentoken(server, port, adminUser, adminPass, expiration=60):
                   'client':     'requestip'}
     
     query_string = urllib.urlencode(query_dict)
-    url = "http://{}:{}/arcgis/admin/generateToken".format(server, port)
+    url = "http://{}:{}/ags/admin/generateToken".format(server, port)
     
     token = json.loads(urllib.urlopen(url + "?f=json", query_string).read())
         
@@ -47,7 +47,7 @@ def getServiceList(server, port,adminUser, adminPass, token=None):
     
     services = []    
     folder = ''    
-    URL = "http://{}:{}/arcgis/admin/services{}?f=pjson&token={}".format(server, port, folder, token)    
+    URL = "http://{}:{}/ags/admin/services{}?f=pjson&token={}".format(server, port, folder, token)    
 
     serviceList = json.loads(urllib2.urlopen(URL).read())
 
@@ -62,7 +62,7 @@ def getServiceList(server, port,adminUser, adminPass, token=None):
         
     if len(folderList) > 0:
         for folder in folderList:                                              
-            URL = "http://{}:{}/arcgis/admin/services/{}?f=pjson&token={}".format(server, port, folder, token)    
+            URL = "http://{}:{}/ags/admin/services/{}?f=pjson&token={}".format(server, port, folder, token)    
             fList = json.loads(urllib2.urlopen(URL).read())
             
             for single in fList["services"]:

@@ -10,10 +10,10 @@ import getpass
 # <Protocol>://<servername>/<Instance>
 # Example http://sampleserver1.arcgisonline.com/ArcGIS
 
-ArcGISURL = 'http://afmcloud.esri.com/ArcGIS'
+ArcGISURL = 'http://avipython103.esri.com/ags'
 AdminUser = "admin"
 AdminPass = getpass.getpass(prompt="Please enter your ArcGIS Server password: ")
-
+print(AdminPass)
 
 #***********End of User Configuration***********
 
