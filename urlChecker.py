@@ -19,6 +19,7 @@ Please direct questions to either the Python user forum : https://geonet.esri.co
 import os
 import re
 import urllib2
+import time
 
 #Set this path to web site repo you want to crawl.
 PATH = "C:\\Users\\avel5840\\Documents\\GitHub\\arcgis-solutions-website-master\\source\\"
@@ -39,11 +40,16 @@ for item in result:
                 try:
                     urllib2.urlopen(lineparse[0])
                 except urllib2.HTTPError, e:
+                    print item
                     print lineparse[0]
                     print(e.code)
+                    time.sleep(5)
+                    
                 except urllib2.URLError, e:
+                    print item
                     print lineparse[0]
-                    print(e.args)                
+                    print(e.args)
+                    time.sleep(5)
         searchfile.close
 
     
