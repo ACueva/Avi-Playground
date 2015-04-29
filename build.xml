@@ -20,8 +20,8 @@
                 </target>
                 
                 <target name="desktop-installed" description="checks if desktop is installed" if="copy">
-                                <echo>Desktop Variable should be set</echo>
-                                <echo> TODO</echo>
+                                <echo message="Desktop Variable should be set"/>
+                                <echo message="TODO"/>
                 </target>
                 
 </project>
