@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="copy" basedir="." name="BuildXYZ">
+
+                <description>
+                Builds .....
+                </description>
+
+                <property environment="env"/>
+  
+                <target name="copy">
+                                <tstamp>
+                                                <format property="time.stamp" pattern="yyyyMMdd-HHmm" />
+                                </tstamp>
+                                
+                                <echo message="Time stamp used for build: ${time.stamp}" /> 
+                                
+                                <echo message="AGS DESKTOP installed at: ${env.AGSDESKTOPJAVA} " />
+                                
+                </target>
+                
+</project>
+
