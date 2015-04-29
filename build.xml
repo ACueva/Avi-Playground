@@ -19,8 +19,7 @@
                                 <echo message="ANT installed at: ${env.ANT_HOME} " />
                 </target>
                 
-                <target name="desktop-installed" description="checks if desktop is installed"
-                        if="copy">
+                <target name="desktop-installed" description="checks if desktop is installed" if="copy">
                                 <echo>Desktop Variable should be set</echo>
                                 <echo> TODO</echo>
                 </target>
