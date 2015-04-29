@@ -21,7 +21,8 @@
                 
                 <target name="desktop-installed" description="checks if desktop is installed" if="copy">
                                 <echo message="Desktop Variable should be set"/>
-                                <echo message="TODO"/>
+                                <echo message="http://stackoverflow.com/questions/14500576/ant-if-else-condition"/>
+                                <echo message="We might have to use Groovy"/>
                 </target>
                 
 </project>
