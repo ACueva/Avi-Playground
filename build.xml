@@ -16,6 +16,7 @@
                                 <echo message="Time stamp used for build: ${time.stamp}" /> 
                                 
                                 <echo message="AGS DESKTOP installed at: ${env.AGSDESKTOPJAVA} " />
+                                <echo message="ANT installed at: ${env.ANT_HOME} " />
                                 
                 </target>
                 
