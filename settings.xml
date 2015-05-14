@@ -18,12 +18,12 @@
 <property name="build.root" value="c:\opsserverbuilds"/>
 <echo message="Build root = ${build.root}"/>
 
+
+<!--  Puts everything together.  The  ${env.BUILD_NUMBER} works when used in Jenkins      -->
 <property name="build.current" value="${build.root}\${env.BUILD_NUMBER}_${time.stamp}"/>
-
-
 
 <echo message="Build current directory = ${build.current}"/>
 
-
+<mkdir dir="${build.current}"/>
 
 </project>
