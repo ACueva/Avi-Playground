@@ -12,16 +12,17 @@
  </tstamp>
 
 <echo message="Build Time = ${time.stamp}"/>
-
-<property name="build.root" value="c:\opsserverbuilds"/>
-<property name="build.current" value="${build.root}\${time.stamp}"/>
-
-
 <echo message="Build number = ${env.BUILD_NUMBER}"/>
 
+
+<property name="build.root" value="c:\opsserverbuilds"/>
 <echo message="Build root = ${build.root}"/>
 
-<echo message="Build current directory = ${env.BUILD_NUMBER}_${build.current}"/>
+<property name="build.current" value="${build.root}\${env.BUILD_NUMBER}_${time.stamp}"/>
+
+
+
+<echo message="Build current directory = ${build.current}"/>
 
 
 
