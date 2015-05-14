@@ -9,7 +9,7 @@
                 Builds .....
                 </description>
 
-<import file="./settings.xml"/> 
+<import file="./settings.xml"/>
 
                 <property environment="env"/>
   
