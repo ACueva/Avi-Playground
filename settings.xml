@@ -17,11 +17,11 @@
 <property name="build.current" value="${build.root}\${time.stamp}"/>
 
 
-<echo message="Build root = ${env.BUILD_NUMBER}"/>
+<echo message="Build number = ${env.BUILD_NUMBER}"/>
 
 <echo message="Build root = ${build.root}"/>
 
-<echo message="Build current directory = ${build.current}"/>
+<echo message="Build current directory = ${env.BUILD_NUMBER}_${build.current}"/>
 
 
 
