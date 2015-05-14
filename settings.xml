@@ -29,7 +29,7 @@
 <target name="CreateFolderStructure">
   <exec executable="cmd">
     <arg value="/c"/>
-    <arg value="C:\GitHub\ops-server-config-master\ops-server-config-master\Utilities\ant.bat"/>
+    <arg value="C:\GitHub\ops-server-config-master\ops-server-config-master\Utilities\CreateOpsServerReleaseFolderStructure.bat"/>
     <arg value="${build.current}"/>
   </exec>
 </target>
