@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+
 <project default="copy" basedir="." name="BuildXYZ">
+
 
                 <description>
                 Builds .....
                 </description>
 
+<import file="./settings.xml"/> 
+
                 <property environment="env"/>
   
                 <target name="copy" description="copy if these items are true" depends="desktop-installed">
-                                <tstamp>
-                                                <format property="time.stamp" pattern="yyyyMMdd-HHmm" />
-                                </tstamp>
+                               
                                 
                                 <echo message="Time stamp used for build: ${time.stamp}" /> 
                                 

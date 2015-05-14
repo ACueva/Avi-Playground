@@ -1,0 +1,28 @@
+<project name="ArcGIS Versions" default="set_version_variables" basedir=".">
+    <description>
+	Purpose: sets version/sdk location variables: ${version.runtime}, ${dir.agsruntimejavasdk}
+	Also verifies that the folder exists
+	NOTE: If you need to build with another/alternate version, see TODO section below 
+    </description>
+
+<property environment="env"/>
+
+ <tstamp>
+    <format property="time.stamp" pattern="yyyyMMdd_HHmm" />
+ </tstamp>
+
+<echo message="Build Time = ${time.stamp}"/>
+
+<property name="build.root" value="c:\opsserverbuilds"/>
+<property name="build.current" value="${build.root}\${time.stamp}"/>
+
+
+<echo message="Build root = ${env.BUILD_NUMBER}"/>
+
+<echo message="Build root = ${build.root}"/>
+
+<echo message="Build current directory = ${build.current}"/>
+
+
+
+</project>
