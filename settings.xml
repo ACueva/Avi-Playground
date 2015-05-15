@@ -1,8 +1,6 @@
 <project name="ArcGIS Versions" default="set_version_variables" basedir=".">
     <description>
-	Purpose: sets version/sdk location variables: ${version.runtime}, ${dir.agsruntimejavasdk}
-	Also verifies that the folder exists
-	NOTE: If you need to build with another/alternate version, see TODO section below 
+	Purpose: sets all settings used by the build
     </description>
 
 <property environment="env"/>
@@ -14,24 +12,17 @@
 <echo message="Build Time = ${time.stamp}"/>
 <echo message="Build number = ${env.BUILD_NUMBER}"/>
 
-
 <property name="build.root" value="c:\opsserverbuilds"/>
 <echo message="Build root = ${build.root}"/>
 
+<property name="opsserver.github.root" value="C:\GitHub\ops-server-config-master\ops-server-config-master"/>
+<echo message="Opsserver.github.root = ${opsserver.github.root}"/>
 
-<!--  Puts everything together.  The  ${env.BUILD_NUMBER} works when used in Jenkins      -->
-<property name="build.current" value="${build.root}\${env.BUILD_NUMBER}_${time.stamp}"/>
+<!--  Puts everything together. Root + Timestamp + Build Number -->
+<!-- The  ${env.BUILD_NUMBER} works when used in Jenkins      -->
+<!-- TODO: ${env.BUILD_NUMBER}_ -->
+<property name="build.current" value="${build.root}\${time.stamp}"/>
 
-<echo message="Build current directory = ${build.current}"/>
-
-<mkdir dir="${build.current}"/>
-
-<target name="CreateFolderStructure">
-  <exec executable="cmd">
-    <arg value="/c"/>
-    <arg value="C:\GitHub\ops-server-config-master\ops-server-config-master\Utilities\CreateOpsServerReleaseFolderStructure.bat"/>
-    <arg value="${build.current}"/>
-  </exec>
-</target>
+<echo message="Build current directory = ${build.current}" />
 
 </project>
