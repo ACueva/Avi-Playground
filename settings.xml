@@ -18,6 +18,27 @@
 <property name="opsserver.github.root" value="C:\GitHub\ops-server-config-master\ops-server-config-master"/>
 <echo message="Opsserver.github.root = ${opsserver.github.root}"/>
 
+<property name="install.location.desktop" value="\\metro\ArcGIS10.3.1"/>
+<echo message="install.location.desktop = ${install.location.desktop}"/>
+
+<property name="install.location.datastore" value="\\metro\ArcGIS_DataStore10.3.1"/>
+<echo message="install.location.datastore = ${install.location.datastore}"/>
+
+<property name="install.location.geoevent" value="\\metro\GeoEvent_10.3.1"/>
+<echo message="install.location.geoevent = ${install.location.geoevent}"/>
+
+<property name="install.location.pro" value="\\metro\ArcGISPro1.0.2\ArcGISPro"/>
+<echo message="install.location.pro = ${install.location.pro}"/>
+
+<property name="install.location.server" value="\\metro\ArcGIS_Server10.3.1"/>
+<echo message="install.location.server = ${install.location.server}"/>
+
+<property name="install.location.portal" value="\\metro\Portal_for_ArcGIS10.3.1"/>
+<echo message="install.location.portal = ${install.location.portal}"/>
+
+<property name="install.location.webadaptoriis" value="\\metro\ArcGIS_WebAdaptorIIS10.3.1"/>
+<echo message="install.location.webadaptoriis = ${install.location.webadaptoriis}"/>
+
 <!--  Puts everything together. Root + Timestamp + Build Number -->
 <!-- The  ${env.BUILD_NUMBER} works when used in Jenkins      -->
 <!-- TODO: ${env.BUILD_NUMBER}_ -->

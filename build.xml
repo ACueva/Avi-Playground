@@ -1,28 +1,87 @@
-<project name="ArcGIS Versions" default="set_version_variables" basedir=".">
-    <description>
-	Purpose: sets all settings used by the build
-    </description>
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="doBuild" basedir="." name="OpsServerRelease">
 
-<property environment="env"/>
+	<description>
+	Builds .....
+	</description>
 
- <tstamp>
-    <format property="time.stamp" pattern="yyyyMMdd_HHmm" />
- </tstamp>
+<import file="./settings.xml"/>
 
-<echo message="Build Time = ${time.stamp}"/>
-<echo message="Build number = ${env.BUILD_NUMBER}"/>
+	<target name="doBuild" description="entire build process - staring task" depends="preBuild,mainBuild,postBuild">
+		<echo message="Doing Build" /> 	
+	</target>
+	
+	<target name="preBuild" description="build pre-reqs" > <!-- TODO: depends="checkDesktopInstalled"> -->
+		<echo message="preBuild" />
+		<echo message="Time stamp used for build: ${time.stamp}" /> 
+		<echo message="AGS DESKTOP installed at: ${env.AGSDESKTOPJAVA} " />
+		<echo message="ANT installed at: ${env.ANT_HOME} " />	
 
-<property name="build.root" value="c:\opsserverbuilds"/>
-<echo message="Build root = ${build.root}"/>
+	<mkdir dir="${build.current}"/>
 
-<property name="opsserver.github.root" value="C:\GitHub\ops-server-config-master\ops-server-config-master"/>
-<echo message="Opsserver.github.root = ${opsserver.github.root}"/>
+	<echo message="CreateFolderStructure"/>
+	<exec executable="${opsserver.github.root}\Utilities\CreateOpsServerReleaseFolderStructure.bat">
+		<arg value="${build.current}"/>	
+	</exec>  
+		
+	</target>
+	
 
-<!--  Puts everything together. Root + Timestamp + Build Number -->
-<!-- The  ${env.BUILD_NUMBER} works when used in Jenkins      -->
-<!-- TODO: ${env.BUILD_NUMBER}_ -->
-<property name="build.current" value="${build.root}\${time.stamp}"/>
+	
+	
+	
+	<target name="mainBuild" description="TODO" depends="copyInstallers">
+		<echo message="mainBuild" />
+	</target>
 
-<echo message="Build current directory = ${build.current}" />
+	<target name="postBuild" description="TODO">
+		<echo message="postBuild" />
+	</target>
+	
+	<target name="checkDesktopInstalled" description="checks if desktop is installed">
+	<echo message="Checking for ArcGIS Desktop."/>	
+	<condition property="agsdesktopnotfound">
+		<not>
+			<isset property="env.AGSDESKTOPJAVA"/>
+		</not>
+	</condition>
+	<fail message="**** COULD NOT FIND VALID ArcGIS Desktop INSTALLATION ****" if="agsdesktopnotfound"/>
+	</target>
+	
+	
+	<target name="copyInstallers" description="TODO">
+	<echo message="copyInstallers" />
+	
+<!-- <property name="install.location.desktop.destination" value="${build.current}/OPSServerInstall/Software/Desktop"/>	 -->
+	<echo message="Copying ArcGIS Desktop" />
+	<copy todir="${build.current}\OPSServerInstall\Software\Desktop">
+	<fileset dir="${install.location.desktop}" /></copy>
+	
+	<echo message="Copying ArcGIS Datastore" />
+	<copy todir="${build.current}\OPSServerInstall\Software\ArcGISDataStore">
+	<fileset dir="${install.location.datastore}" /></copy>
+	
+	<echo message="Copying ArcGIS GeoEvent" />
+	<copy todir="${build.current}\OPSServerInstall\Software\ArcGISGeoEvent">
+	<fileset dir="${install.location.geoevent}" /></copy>
+	
+	<echo message="Copying ArcGIS Pro" />
+	<copy todir="${build.current}\OPSServerInstall\Software\ArcGISPro_not_final">
+	<fileset dir="${install.location.pro}" /></copy>
+	
+	<echo message="Copying ArcGIS Server" />
+	<copy todir="${build.current}\OPSServerInstall\Software\ArcGISServer">
+	<fileset dir="${install.location.server}" /></copy>
+	
+	<echo message="Copying Portal for ArcGIS" />
+	<copy todir="${build.current}\OPSServerInstall\Software\PortalForArcGIS">
+	<fileset dir="${install.location.portal}" /></copy>
+	
+	<echo message="Copying WebAdptor for IIS]" />
+	<copy todir="${build.current}\OPSServerInstall\Software\WebAdaptorIIS">
+	<fileset dir="${install.location.webadaptoriis}" /></copy>
 
+	</target>
+	
 </project>
+
