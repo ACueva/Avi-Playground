@@ -8,6 +8,15 @@
  <tstamp>
     <format property="time.stamp" pattern="yyyyMMdd_HHmm" />
  </tstamp>
+ 
+<property name="build.ArcGISServer" value="dev04521.esri.com"/>
+<echo message="Build ArcGIS Server = ${build.ArcGISServer}"/>
+
+<property name="build.ArcGISPortal" value="dev04521.esri.com"/>
+<echo message="Build Portal for ArcGIS = ${build.ArcGISPortal}"/>
+
+<property name="build.Geoevent" value="dev04521.esri.com"/>
+<echo message="Build GeoEvent Exension Server = ${build.Geoevent}"/>
 
 <echo message="Build Time = ${time.stamp}"/>
 <echo message="Build number = ${env.BUILD_NUMBER}"/>
@@ -15,8 +24,47 @@
 <property name="build.root" value="c:\opsserverbuilds"/>
 <echo message="Build root = ${build.root}"/>
 
+<!--  Puts everything together. Root + Timestamp + Build Number -->
+<!-- The  ${env.BUILD_NUMBER} works when used in Jenkins      -->
+<!-- TODO: ${env.BUILD_NUMBER}_ -->
+<property name="build.current" value="${build.root}\${time.stamp}"/>
+<echo message="Build current directory = ${build.current}" />
+
+<property name="build.temp" value="${build.root}\temp"/>
+<echo message="Build temporary directory = ${build.temp}" />
+
+<property name="build.temp.zip" value="${build.temp}\zips"/>
+<echo message="Build temporary zip directory = ${build.temp.zip}" />
+
+<!-- Geoevent Data Location -->
+<property name="opsserver.location.geoevent.data" value="\\${build.Geoevent}\c$\data"/>
+<echo message="opsserver.location.geoevent.data = ${opsserver.geoevent.data}"/>
+
+<!-- Geoevent Jar files location-->
+<property name="opsserver.location.geoevent.jarfiles" value="\\${build.Geoevent}\c$\Program Files\ArcGIS\Server\GeoEvent\deploy"/>
+<echo message="opsserver.location.geoevent.jarfiles = ${opsserver.geoevent.jarfiles}"/>
+
+<!-- Geoevent Message Simulator Messages location-->
+<property name="opsserver.location.geoevent.messagesimulator.messages" value="\\${build.Geoevent}\c$\MessageSimulator\Messages"/>
+<echo message="opsserver.location.geoevent.messagesimulator.messages = ${opsserver.geoevent.messagesimulator.messages}"/>
+
+<!-- Geoevent Message Simulator Batch Files location-->
+<property name="opsserver.location.geoevent.messagesimulator.batch" value="\\${build.Geoevent}\c$\MessageSimulator\"/>
+<echo message="opsserver.location.geoevent.messagesimulator.batch = ${opsserver.geoevent.messagesimulator.batch}"/>
+
+<!-- Cache Location -->
+<property name="opsserver.location.cache" value="\\${build.ArcGISServer}\c$\arcgisserver\directories\arcgiscache"/>
+<echo message="opsserver.location.cache = ${opsserver.location.cache}"/>
+
+
+<!-- Web Applications Location -->
+<property name="opsserver.location.webapps" value="\\${build.ArcGISServer}\c$\inetpub\wwwroot\SolutionsWeb"/>
+<echo message="opsserver.location.webapps = ${opsserver.location.webapps}"/>
+
+
+<!-- Installer Locations -->
 <property name="opsserver.github.root" value="C:\GitHub\ops-server-config-master\ops-server-config-master"/>
-<echo message="Opsserver.github.root = ${opsserver.github.root}"/>
+<echo message="opsserver.github.root = ${opsserver.github.root}"/>
 
 <property name="install.location.desktop" value="\\metro\ArcGIS10.3.1"/>
 <echo message="install.location.desktop = ${install.location.desktop}"/>
@@ -39,11 +87,7 @@
 <property name="install.location.webadaptoriis" value="\\metro\ArcGIS_WebAdaptorIIS10.3.1"/>
 <echo message="install.location.webadaptoriis = ${install.location.webadaptoriis}"/>
 
-<!--  Puts everything together. Root + Timestamp + Build Number -->
-<!-- The  ${env.BUILD_NUMBER} works when used in Jenkins      -->
-<!-- TODO: ${env.BUILD_NUMBER}_ -->
-<property name="build.current" value="${build.root}\${time.stamp}"/>
-
-<echo message="Build current directory = ${build.current}" />
+<property name="install.location.ops-server-config" value="C:\OpsServerBuilds\temp\opsserver\ops-server-config-v.next"/>
+<echo message="install.location.ops-server-config = ${install.location.ops-server-config}"/>
 
 </project>

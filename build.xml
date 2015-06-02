@@ -23,19 +23,43 @@
 	<exec executable="${opsserver.github.root}\Utilities\CreateOpsServerReleaseFolderStructure.bat">
 		<arg value="${build.current}"/>	
 	</exec>  
-		
+	
+	<echo message="Downloading Eric's Repo" />
+    <get src="https://github.com/elinz/ops-server-config/archive/v.next.zip"
+         dest="${build.temp.zip}/OpsServerRepo.zip"
+         usetimestamp="true"
+         verbose="true"/>
+	<echo message="Unzipping Eric's Repo."/>
+    <unzip src="${build.temp.zip}/OpsServerRepo.zip"
+          dest="${build.temp}/opsserver"/>
+		 
+	 <echo message="Copying Eric's Repo to build directory" />
+	<copy todir="${build.current}\OPSServerInstall\Software\ops-server-config">
+	<fileset dir="${install.location.ops-server-config}" /></copy>
 	</target>
 	
 
 	
+	<!-- depends="copyInstallers" -->
 	
-	
-	<target name="mainBuild" description="TODO" depends="copyInstallers">
+	<target name="mainBuild" description="TODO" depends="copyGeoevent">  
 		<echo message="mainBuild" />
 	</target>
 
 	<target name="postBuild" description="TODO">
 		<echo message="postBuild" />
+
+<!--  Making sure ArcGIS Server and Portal for ArcGIS Windows Services are started -->
+<!--<echo message="Starting ArcGIS Server"/>
+<exec executable="sc" failonerror="true">
+<arg line="\\${build.ArcGISServer} start 'ArcGIS Server'"/>
+</exec>
+
+<echo message="Starting ArcGIS Server"/>
+<exec executable="sc" failonerror="true">
+<arg line="\\${build.ArcGISPortal} start 'Portal for ArcGIS'"/>
+</exec>-->
+	
 	</target>
 	
 	<target name="checkDesktopInstalled" description="checks if desktop is installed">
@@ -47,12 +71,52 @@
 	</condition>
 	<fail message="**** COULD NOT FIND VALID ArcGIS Desktop INSTALLATION ****" if="agsdesktopnotfound"/>
 	</target>
+
+<!-- Copies ArcGIS Server Cache -->
+	<target name="copyCache" description="Copies ArcGIS Server Cache content">
+	<echo message="Copying Ops Server Cache" />
+	<copy todir="${build.current}\OPSServerInstall\Server\Staging\Caches">
+	<fileset dir="${opsserver.location.cache}" /></copy>
+	</target>
+
+<!-- Copies Web Applications -->
+	<target name="copyWebApplications" description="Copies all web applications">
+	<echo message="Copying Web Applications" />
+	<copy todir="${build.current}\OPSServerInstall\WebApps">
+	<fileset dir="${opsserver.location.webapps}" /></copy>
+	</target>
+
+<!-- Copies GeoEvent Related Files -->
+	<target name="copyGeoevent" description="Copies Geoevent related files">
+	<echo message="Copying Geoevent Related Files" />
+	
+	<!-- Copying Geoevent Data -->
+	<copy todir="${build.current}\OPSServerInstall\GeoEvent\data">
+	<fileset dir="${opsserver.location.geoevent.data}" /></copy>
+	
+	<!-- Copying Geoevent Jar Files -->
+	<copy todir="${build.current}\OPSServerInstall\GeoEvent\jar_files">
+	<fileset dir="${opsserver.location.geoevent.jarfiles}" /></copy>
+	
+	<!-- Copying Geoevent Message Files -->
+	<!-- ***Note*** Will only copy batch files with file name ending in "simulation" -->
+	<copy todir="${build.current}\OPSServerInstall\GeoEvent\messagesimulator">
+	<fileset dir="${opsserver.location.geoevent.messagesimulator.batch}">
+	<include name="**/*simulation.bat"/>
+
+	</fileset>
+	</copy>
+	
+	<copy todir="${build.current}\OPSServerInstall\GeoEvent\messagesimulator\messages">
+	<fileset dir="${opsserver.location.geoevent.messagesimulator.messages}" /></copy>
+	
+	</target>
 	
 	
-	<target name="copyInstallers" description="TODO">
+<!-- Copies all the dependent installers -->	
+	<target name="copyInstallers" description="Copies all software installers">
 	<echo message="copyInstallers" />
 	
-<!-- <property name="install.location.desktop.destination" value="${build.current}/OPSServerInstall/Software/Desktop"/>	 -->
 	<echo message="Copying ArcGIS Desktop" />
 	<copy todir="${build.current}\OPSServerInstall\Software\Desktop">
 	<fileset dir="${install.location.desktop}" /></copy>
@@ -80,7 +144,7 @@
 	<echo message="Copying WebAdptor for IIS]" />
 	<copy todir="${build.current}\OPSServerInstall\Software\WebAdaptorIIS">
 	<fileset dir="${install.location.webadaptoriis}" /></copy>
-
+	
 	</target>
 	
 </project>
